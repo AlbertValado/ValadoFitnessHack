@@ -76,7 +76,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsuarisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarisActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnUsuarisActionPerformed
 
     /**
