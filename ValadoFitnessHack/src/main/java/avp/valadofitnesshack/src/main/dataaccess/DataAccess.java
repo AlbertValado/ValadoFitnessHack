@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,15 +24,17 @@ public class DataAccess {
 
     private Connection getConnection() {
         Connection connection = null;
-        Properties properties = new Properties();
+        //Properties properties = new Properties();
+        String connectionString = "jdbc:sqlserver://localhost;database=simulapdb;user=sa;"
+                                    +"password=sunset1234;encrypt=false;";
         try {
             //properties.load(DataAccess.class.getClassLoader().getResourceAsStream("properties/application.properties"));
             //connection = DriverManager.getConnection(properties.getProperty("connectionUrl"));
-            String connectionUrl = "jdbc:sqlserver://localhost:1433;database=simulapdb;user=sa;password=Pwd1234.;encrypt=false;loginTimeout=10;";
-            String connectionUrlAzure = "jdbc:sqlserver://simulapsqlserver.database.windows.net:1433;database=simulapdb;user=simulapdbadmin@simulapsqlserver;password=Pwd1234.;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
+           
+            //String connectionUrlAzure = "jdbc:sqlserver://simulapsqlserver.database.windows.net:1433;database=simulapdb;user=simulapdbadmin@simulapsqlserver;password=Pwd1234.;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;";
 
-            //connection = DriverManager.getConnection(connectionUrl);
-            connection = DriverManager.getConnection(connectionUrlAzure);
+            connection = DriverManager.getConnection(connectionString);
+            //connection = DriverManager.getConnection(connectionUrlAzure);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,19 +43,22 @@ public class DataAccess {
     }
 
     public Usuari getUser(String email) {
+        
         Usuari user = null;
         String sql = "SELECT * FROM Usuaris WHERE Email = ?";
         try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
             selectStatement.setString(1, email);
             ResultSet resultSet = selectStatement.executeQuery();
-            user = new Usuari();
             while (resultSet.next()) {
+                user = new Usuari();
                 user.setId(resultSet.getInt("Id"));
                 user.setNom(resultSet.getString("Nom"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setPasswordHash(resultSet.getString("PasswordHash"));
-                user.setInstructor(resultSet.getBoolean("Instructor"));
+                user.setInstructor(resultSet.getBoolean("IsInstructor"));
             }
+            selectStatement.close();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
