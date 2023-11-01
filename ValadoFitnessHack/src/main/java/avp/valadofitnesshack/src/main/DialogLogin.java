@@ -7,6 +7,7 @@ package avp.valadofitnesshack.src.main;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import avp.valadofitnesshack.src.main.dataaccess.DataAccess;
 import avp.valadofitnesshack.src.main.dto.Usuari;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,13 +16,16 @@ import javax.swing.JOptionPane;
  */
 public class DialogLogin extends javax.swing.JDialog {
 
+    JFrame mainFrame;
     /**
      * Creates new form DialogLogin
      */
-    public DialogLogin(java.awt.Frame parent, boolean modal) {
+    public DialogLogin(java.awt.Frame parent, boolean modal, JFrame main) {
         super(parent, modal);
         initComponents();
+        this.mainFrame = main;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,16 +124,20 @@ public class DialogLogin extends javax.swing.JDialog {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         DataAccess da = new DataAccess();
         Usuari usuari = da.getUser(txtLoginEmail.getText());
-        if(usuari != null){
+        if(usuari.getPasswordHash() != null){
             //Comprobar password
             char[] passwordToVerify = txtLoginContrassenya.getPassword();
             String userPasswordHashInDatabase = usuari.getPasswordHash();
             var result = BCrypt.verifyer().verify(passwordToVerify, userPasswordHashInDatabase);
-            if (result.verified){
+            if (result.verified && usuari.isInstructor()== true){
+                dispose();
+                UserView userView = new UserView();
+                userView.setVisible(true);
+                mainFrame.dispose();
                 JOptionPane.showMessageDialog(this, "Login successful. Welcome " + usuari.getNom() + "!");
             }
             else{
-                JOptionPane.showMessageDialog(this, "Error: invalid password");
+                JOptionPane.showMessageDialog(this, "Error: invalid user or password");
             }
         }
         else{
@@ -167,7 +175,7 @@ public class DialogLogin extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogLogin dialog = new DialogLogin(new javax.swing.JFrame(), true);
+                DialogLogin dialog = new DialogLogin(new javax.swing.JFrame(), true, new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

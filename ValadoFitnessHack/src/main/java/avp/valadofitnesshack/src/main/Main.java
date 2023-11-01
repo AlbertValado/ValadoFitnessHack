@@ -4,17 +4,36 @@
  */
 package avp.valadofitnesshack.src.main;
 
+import avp.valadofitnesshack.src.main.dataaccess.DataAccess;
+import avp.valadofitnesshack.src.main.dto.Usuari;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Albert
  */
 public class Main extends javax.swing.JFrame {
 
+    private DataAccess da = new DataAccess();
+    private javax.swing.JList<Usuari> lstUsuaris;
+    
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        setSize(700,500);
+        setLocationRelativeTo(null);
+        
+        lstUsuaris = new javax.swing.JList<>();
+        jScrollPane2.setViewportView(lstUsuaris);
+        lstUsuaris.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstUsuarisValueChanged(evt);
+            }
+        });
+        
         //lblIconLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login_icon.png")));
     }
 
@@ -30,9 +49,15 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnUsuaris = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lstUsuarisStrings = new javax.swing.JList<>();
+        txtUserInfo = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+
+        jPanel1.setLayout(null);
 
         btnUsuaris.setText("Usuaris");
         btnUsuaris.addActionListener(new java.awt.event.ActionListener() {
@@ -40,6 +65,8 @@ public class Main extends javax.swing.JFrame {
                 btnUsuarisActionPerformed(evt);
             }
         });
+        jPanel1.add(btnUsuaris);
+        btnUsuaris.setBounds(6, 6, 72, 23);
 
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -47,30 +74,29 @@ public class Main extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
+        jPanel1.add(btnLogin);
+        btnLogin.setBounds(184, 227, 72, 23);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnUsuaris))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(btnLogin)))
-                .addContainerGap(222, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnUsuaris)
-                .addGap(177, 177, 177)
-                .addComponent(btnLogin)
-                .addContainerGap(235, Short.MAX_VALUE))
-        );
+        lstUsuarisStrings.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        lstUsuarisStrings.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstUsuarisStringsValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstUsuarisStrings);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(6, 35, 103, 146);
+
+        txtUserInfo.setText("jTextField1");
+        jPanel1.add(txtUserInfo);
+        txtUserInfo.setBounds(6, 193, 250, 22);
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(127, 35, 129, 146);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,14 +104,14 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -93,14 +119,33 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsuarisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarisActionPerformed
-        
+//        ArrayList<Usuari> usuaris = da.getUsuaris();
+//        DefaultListModel dfm = new DefaultListModel<>();
+//        for(Usuari u: usuaris){
+//            dfm.addElement(u.toString());
+//        }
+//        lstUsuarisStrings.setModel(dfm);
+          ArrayList<Usuari> usuaris = da.getAllUsers();
+          DefaultListModel dfmu = new DefaultListModel<>();
+          for (Usuari u: usuaris){
+              dfmu.addElement(u);
+          }
+          lstUsuaris.setModel(dfmu);
     }//GEN-LAST:event_btnUsuarisActionPerformed
 
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        DialogLogin dialogLogin = new DialogLogin(this, true);
+        DialogLogin dialogLogin = new DialogLogin(this, true, this);
         dialogLogin.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void lstUsuarisValueChanged(javax.swing.event.ListSelectionEvent evt){
+        Usuari selectedUser  = lstUsuaris.getSelectedValue();
+        txtUserInfo.setText(selectedUser.getId() +": " +selectedUser);
+    }
+    private void lstUsuarisStringsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstUsuarisStringsValueChanged
+        
+    }//GEN-LAST:event_lstUsuarisStringsValueChanged
     
     
     /**
@@ -142,5 +187,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnUsuaris;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> lstUsuarisStrings;
+    private javax.swing.JTextField txtUserInfo;
     // End of variables declaration//GEN-END:variables
 }

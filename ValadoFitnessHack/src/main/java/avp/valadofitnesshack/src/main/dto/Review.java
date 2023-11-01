@@ -9,6 +9,7 @@ package avp.valadofitnesshack.src.main.dto;
  * @author Albert
  */
 public class Review {
+    private int id;
     private int idIntent;
     private int idReviewer;
     private int valoracio;
@@ -17,11 +18,20 @@ public class Review {
     public Review() {
     }
 
-    public Review(int idIntent, int idReviewer, int valoracio, String comentari) {
+    public Review(int id, int idIntent, int idReviewer, int valoracio, String comentari) {
+        this.id = id;
         this.idIntent = idIntent;
         this.idReviewer = idReviewer;
         this.valoracio = valoracio;
         this.comentari = comentari;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getIdIntent() {
