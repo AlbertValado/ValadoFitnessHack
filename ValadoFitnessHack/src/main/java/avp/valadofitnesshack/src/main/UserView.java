@@ -7,8 +7,12 @@ package avp.valadofitnesshack.src.main;
 import avp.valadofitnesshack.src.main.dataaccess.DataAccess;
 import avp.valadofitnesshack.src.main.dto.Intent;
 import avp.valadofitnesshack.src.main.dto.Usuari;
+import java.awt.BorderLayout;
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
 
 /**
  *
@@ -19,6 +23,11 @@ public class UserView extends javax.swing.JFrame {
     private DataAccess da = new DataAccess();
     private javax.swing.JList<Intent> lstAttemptsPendingReview;
     private javax.swing.JList<Usuari> lstUsuaris;
+    private javax.swing.JList<String> lstVideos;
+    
+    private EmbeddedMediaPlayerComponent mediaPlayer;
+    private JFileChooser fileChooser;
+    private boolean isPlaying = false;
     
     /**
      * Creates new form UserView
@@ -30,6 +39,11 @@ public class UserView extends javax.swing.JFrame {
         
         lstAttemptsPendingReview = new javax.swing.JList<>();
         lstUsuaris = new javax.swing.JList<>();
+        lstVideos = new javax.swing.JList<>();
+        
+        fileChooser = new JFileChooser();
+        mediaPlayer = new EmbeddedMediaPlayerComponent();
+        pnlVideoPlayer.add(mediaPlayer, BorderLayout.CENTER);
         
         
         lstAttemptsPendingReview.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -43,6 +57,12 @@ public class UserView extends javax.swing.JFrame {
                 lstUsuarisValueChanged(evt);
             }
         });
+        
+        lstVideos.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstVideosValueChanged(evt);
+            }
+        });
     }
 
     /**
@@ -54,8 +74,7 @@ public class UserView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        pnlVideoPlayer = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         txtInfo = new javax.swing.JTextField();
         btnLogOut = new javax.swing.JButton();
@@ -65,6 +84,9 @@ public class UserView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         btnGetAttemptsPendingReview = new javax.swing.JButton();
         btnGetUsers = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        btnPauseResumeVideo = new javax.swing.JButton();
+        btnLoadFile = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -72,26 +94,12 @@ public class UserView extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Video"));
-
-        jButton4.setText("Pause/Resume");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jButton4)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(232, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
-        );
+        pnlVideoPlayer.setBorder(javax.swing.BorderFactory.createTitledBorder("Video"));
+        pnlVideoPlayer.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(pnlVideoPlayer);
+        pnlVideoPlayer.setBounds(260, 0, 434, 226);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Info"));
 
@@ -108,18 +116,31 @@ public class UserView extends javax.swing.JFrame {
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
+        getContentPane().add(jPanel4);
+        jPanel4.setBounds(18, 316, 679, 54);
+
         btnLogOut.setText("Log Out");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogOutActionPerformed(evt);
             }
         });
+        getContentPane().add(btnLogOut);
+        btnLogOut.setBounds(624, 376, 73, 23);
 
         jButton1.setText("Review");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(18, 376, 72, 23);
 
         jButton2.setText("Edit");
+        getContentPane().add(jButton2);
+        jButton2.setBounds(102, 376, 72, 23);
 
         jButton3.setText("Delete");
+        getContentPane().add(jButton3);
+        jButton3.setBounds(186, 376, 72, 23);
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(6, 6, 239, 226);
 
         btnGetAttemptsPendingReview.setText("Get Attempts Pending Review");
         btnGetAttemptsPendingReview.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +148,8 @@ public class UserView extends javax.swing.JFrame {
                 btnGetAttemptsPendingReviewActionPerformed(evt);
             }
         });
+        getContentPane().add(btnGetAttemptsPendingReview);
+        btnGetAttemptsPendingReview.setBounds(6, 238, 187, 23);
 
         btnGetUsers.setText("Get Users Info");
         btnGetUsers.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +157,30 @@ public class UserView extends javax.swing.JFrame {
                 btnGetUsersActionPerformed(evt);
             }
         });
+        getContentPane().add(btnGetUsers);
+        btnGetUsers.setBounds(6, 267, 103, 23);
+
+        jTextField1.setText("txtVideosPath");
+        getContentPane().add(jTextField1);
+        jTextField1.setBounds(263, 267, 313, 22);
+
+        btnPauseResumeVideo.setText("Pause/Resume");
+        btnPauseResumeVideo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPauseResumeVideoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPauseResumeVideo);
+        btnPauseResumeVideo.setBounds(404, 238, 118, 23);
+
+        btnLoadFile.setText("Load File");
+        btnLoadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadFileActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLoadFile);
+        btnLoadFile.setBounds(263, 238, 123, 23);
 
         jMenu1.setText("File");
 
@@ -151,55 +198,6 @@ public class UserView extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGetAttemptsPendingReview)
-                    .addComponent(btnGetUsers))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
-                        .addComponent(btnLogOut)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGetAttemptsPendingReview)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGetUsers))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(btnLogOut))
-                .addGap(20, 20, 20))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -212,11 +210,12 @@ public class UserView extends javax.swing.JFrame {
     private void btnGetAttemptsPendingReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetAttemptsPendingReviewActionPerformed
         jScrollPane1.setViewportView(lstAttemptsPendingReview);
         ArrayList<Intent> intents = da.getAttemptsPendingReview();
-          DefaultListModel dfmu = new DefaultListModel<>();
-          for (Intent i: intents){
-              dfmu.addElement(i);
-          }
-          lstAttemptsPendingReview.setModel(dfmu);
+        DefaultListModel dfmu = new DefaultListModel<>();
+        for (Intent i: intents){
+            dfmu.addElement(i);
+        }
+        lstAttemptsPendingReview.removeAll();
+        lstAttemptsPendingReview.setModel(dfmu);
     }//GEN-LAST:event_btnGetAttemptsPendingReviewActionPerformed
 
     private void btnGetUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetUsersActionPerformed
@@ -226,8 +225,41 @@ public class UserView extends javax.swing.JFrame {
           for (Usuari u: usuaris){
               dfmu.addElement(u);
           }
+          lstUsuaris.removeAll();
           lstUsuaris.setModel(dfmu);
     }//GEN-LAST:event_btnGetUsersActionPerformed
+
+    private void btnLoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFileActionPerformed
+        jScrollPane1.setViewportView(lstVideos);
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION){
+            jTextField1.setText(fileChooser.getSelectedFile().getAbsolutePath());
+            File videosFolder = new File(fileChooser.getSelectedFile().getAbsolutePath());
+            File[] videos = videosFolder.listFiles();
+            DefaultListModel dlm = new DefaultListModel();
+            for (int i=0; i<videos.length;i++){
+                File video = new File(videos[i].getAbsolutePath());
+                if(video.isFile()){
+                    dlm.addElement(video.getName());
+                }
+            }
+            lstVideos.removeAll();
+            lstVideos.setModel(dlm);
+        }
+    }//GEN-LAST:event_btnLoadFileActionPerformed
+
+    private void btnPauseResumeVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseResumeVideoActionPerformed
+        if(isPlaying){
+            mediaPlayer.mediaPlayer().controls().pause();
+            isPlaying = false;
+            btnPauseResumeVideo.setText("Resume");
+        }else {
+            mediaPlayer.mediaPlayer().controls().start();
+            isPlaying = true;
+            btnPauseResumeVideo.setText("Pause");
+        }
+    }//GEN-LAST:event_btnPauseResumeVideoActionPerformed
 
     private void lstAttemptsPendingReviewValueChanged(javax.swing.event.ListSelectionEvent evt){
         Intent selectedIntent  = lstAttemptsPendingReview.getSelectedValue();
@@ -238,6 +270,18 @@ public class UserView extends javax.swing.JFrame {
         Usuari selectedUser  = lstUsuaris.getSelectedValue();
         txtInfo.setText(selectedUser.getId() +": " +selectedUser);
     }
+    
+    private void lstVideosValueChanged(javax.swing.event.ListSelectionEvent evt){
+        if(evt.getValueIsAdjusting()){
+            return;
+        }
+        String videoFileFolder = fileChooser.getSelectedFile().getAbsolutePath();
+        String videoFileAbsolutePath = videoFileFolder +"\\" + lstVideos.getSelectedValue();
+        mediaPlayer.mediaPlayer().media().play(videoFileAbsolutePath);
+        isPlaying = true;
+        btnPauseResumeVideo.setText("Pause");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -277,19 +321,21 @@ public class UserView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGetAttemptsPendingReview;
     private javax.swing.JButton btnGetUsers;
+    private javax.swing.JButton btnLoadFile;
     private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnPauseResumeVideo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel pnlVideoPlayer;
     private javax.swing.JTextField txtInfo;
     // End of variables declaration//GEN-END:variables
 }

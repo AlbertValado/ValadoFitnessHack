@@ -23,6 +23,7 @@ public class DialogLogin extends javax.swing.JDialog {
     public DialogLogin(java.awt.Frame parent, boolean modal, JFrame main) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         this.mainFrame = main;
     }
     
@@ -52,9 +53,9 @@ public class DialogLogin extends javax.swing.JDialog {
 
         lblLoginContrassenya.setText("Contrassenya:");
 
-        txtLoginEmail.setText("email@example.com");
+        txtLoginEmail.setText("a@b.c");
 
-        txtLoginContrassenya.setText("jPasswordField1");
+        txtLoginContrassenya.setText("atring");
 
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {

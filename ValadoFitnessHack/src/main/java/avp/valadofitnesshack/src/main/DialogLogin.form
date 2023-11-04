@@ -109,12 +109,12 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtLoginEmail">
           <Properties>
-            <Property name="text" type="java.lang.String" value="email@example.com"/>
+            <Property name="text" type="java.lang.String" value="a@b.c"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtLoginContrassenya">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jPasswordField1"/>
+            <Property name="text" type="java.lang.String" value="atring"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogin">

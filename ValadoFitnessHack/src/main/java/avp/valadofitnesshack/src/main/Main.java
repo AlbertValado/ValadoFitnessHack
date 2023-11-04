@@ -118,30 +118,30 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnUsuarisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarisActionPerformed
-//        ArrayList<Usuari> usuaris = da.getUsuaris();
-//        DefaultListModel dfm = new DefaultListModel<>();
-//        for(Usuari u: usuaris){
-//            dfm.addElement(u.toString());
-//        }
-//        lstUsuarisStrings.setModel(dfm);
-          
-    }//GEN-LAST:event_btnUsuarisActionPerformed
-
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         DialogLogin dialogLogin = new DialogLogin(this, true, this);
         dialogLogin.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void btnUsuarisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarisActionPerformed
+        //        ArrayList<Usuari> usuaris = da.getUsuaris();
+        //        DefaultListModel dfm = new DefaultListModel<>();
+        //        for(Usuari u: usuaris){
+            //            dfm.addElement(u.toString());
+            //        }
+        //        lstUsuarisStrings.setModel(dfm);
+
+    }//GEN-LAST:event_btnUsuarisActionPerformed
+
+    private void lstUsuarisStringsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstUsuarisStringsValueChanged
+
+    }//GEN-LAST:event_lstUsuarisStringsValueChanged
+
     private void lstUsuarisValueChanged(javax.swing.event.ListSelectionEvent evt){
         Usuari selectedUser  = lstUsuaris.getSelectedValue();
         txtUserInfo.setText(selectedUser.getId() +": " +selectedUser);
-    }
-    private void lstUsuarisStringsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstUsuarisStringsValueChanged
-        
-    }//GEN-LAST:event_lstUsuarisStringsValueChanged
-    
+    }    
     
     /**
      * @param args the command line arguments
