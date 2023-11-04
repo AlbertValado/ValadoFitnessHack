@@ -20,6 +20,11 @@ public class Intent {
 
     public Intent() {
     }
+    
+    @Override
+    public String toString(){
+        return "ID: " + id + ", ID Usuari: " + idUsuari + ", Nom: " + nomUsuari +  ", ID Exercici: " + idExercici +", Nom Exercici: "+ nomExercici;
+    }
 
     public int getId() {
         return id;

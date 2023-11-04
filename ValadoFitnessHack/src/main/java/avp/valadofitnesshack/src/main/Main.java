@@ -125,12 +125,7 @@ public class Main extends javax.swing.JFrame {
 //            dfm.addElement(u.toString());
 //        }
 //        lstUsuarisStrings.setModel(dfm);
-          ArrayList<Usuari> usuaris = da.getAllUsers();
-          DefaultListModel dfmu = new DefaultListModel<>();
-          for (Usuari u: usuaris){
-              dfmu.addElement(u);
-          }
-          lstUsuaris.setModel(dfmu);
+          
     }//GEN-LAST:event_btnUsuarisActionPerformed
 
     
