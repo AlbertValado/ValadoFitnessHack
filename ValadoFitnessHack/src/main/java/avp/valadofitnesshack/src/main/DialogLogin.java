@@ -55,7 +55,7 @@ public class DialogLogin extends javax.swing.JDialog {
 
         txtLoginEmail.setText("a@b.c");
 
-        txtLoginContrassenya.setText("atring");
+        txtLoginContrassenya.setText("string");
 
         btnLogin.setText("Login");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +132,7 @@ public class DialogLogin extends javax.swing.JDialog {
             var result = BCrypt.verifyer().verify(passwordToVerify, userPasswordHashInDatabase);
             if (result.verified && usuari.isInstructor()== true){
                 dispose();
-                UserView userView = new UserView();
+                InstructorView userView = new InstructorView();
                 userView.setVisible(true);
                 mainFrame.dispose();
                 JOptionPane.showMessageDialog(this, "Login successful. Welcome " + usuari.getNom() + "!");

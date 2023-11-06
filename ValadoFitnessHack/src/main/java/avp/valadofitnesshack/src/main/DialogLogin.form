@@ -114,7 +114,7 @@
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtLoginContrassenya">
           <Properties>
-            <Property name="text" type="java.lang.String" value="atring"/>
+            <Property name="text" type="java.lang.String" value="string"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnLogin">

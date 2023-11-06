@@ -18,11 +18,12 @@ import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
  *
  * @author Albert
  */
-public class UserView extends javax.swing.JFrame {
+public class InstructorView extends javax.swing.JFrame {
 
     private DataAccess da = new DataAccess();
     private javax.swing.JList<Intent> lstAttemptsPendingReview;
     private javax.swing.JList<Usuari> lstUsuaris;
+    private javax.swing.JList<Intent> lstAttemptsPerUser;
     private javax.swing.JList<String> lstVideos;
     
     private EmbeddedMediaPlayerComponent mediaPlayer;
@@ -32,13 +33,14 @@ public class UserView extends javax.swing.JFrame {
     /**
      * Creates new form UserView
      */
-    public UserView() {
+    public InstructorView() {
         initComponents();
-        setSize(700, 500);
+        setSize(720, 630);
         setLocationRelativeTo(null);
         
         lstAttemptsPendingReview = new javax.swing.JList<>();
         lstUsuaris = new javax.swing.JList<>();
+        lstAttemptsPerUser = new javax.swing.JList<>();
         lstVideos = new javax.swing.JList<>();
         
         fileChooser = new JFileChooser();
@@ -63,6 +65,12 @@ public class UserView extends javax.swing.JFrame {
                 lstVideosValueChanged(evt);
             }
         });
+        
+        lstAttemptsPerUser.addListSelectionListener(new javax.swing.event.ListSelectionListener(){
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt){
+                lstAttemptsPerUserValueChanged(evt);
+            }
+        });
     }
 
     /**
@@ -81,12 +89,13 @@ public class UserView extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        pnlPendingReviewsUsers = new javax.swing.JScrollPane();
         btnGetAttemptsPendingReview = new javax.swing.JButton();
         btnGetUsers = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         btnPauseResumeVideo = new javax.swing.JButton();
         btnLoadFile = new javax.swing.JButton();
+        pnlAttemptsPerUser = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -99,7 +108,7 @@ public class UserView extends javax.swing.JFrame {
         pnlVideoPlayer.setBorder(javax.swing.BorderFactory.createTitledBorder("Video"));
         pnlVideoPlayer.setLayout(new java.awt.BorderLayout());
         getContentPane().add(pnlVideoPlayer);
-        pnlVideoPlayer.setBounds(260, 0, 434, 226);
+        pnlVideoPlayer.setBounds(164, 0, 530, 270);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Info"));
 
@@ -107,17 +116,20 @@ public class UserView extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(txtInfo)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(txtInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(18, 316, 679, 54);
+        jPanel4.setBounds(10, 430, 679, 60);
 
         btnLogOut.setText("Log Out");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -126,21 +138,21 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnLogOut);
-        btnLogOut.setBounds(624, 376, 73, 23);
+        btnLogOut.setBounds(553, 493, 130, 70);
 
         jButton1.setText("Review");
         getContentPane().add(jButton1);
-        jButton1.setBounds(18, 376, 72, 23);
+        jButton1.setBounds(20, 490, 72, 23);
 
         jButton2.setText("Edit");
         getContentPane().add(jButton2);
-        jButton2.setBounds(102, 376, 72, 23);
+        jButton2.setBounds(100, 490, 72, 23);
 
         jButton3.setText("Delete");
         getContentPane().add(jButton3);
-        jButton3.setBounds(186, 376, 72, 23);
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(6, 6, 239, 226);
+        jButton3.setBounds(180, 490, 72, 23);
+        getContentPane().add(pnlPendingReviewsUsers);
+        pnlPendingReviewsUsers.setBounds(220, 290, 290, 130);
 
         btnGetAttemptsPendingReview.setText("Get Attempts Pending Review");
         btnGetAttemptsPendingReview.addActionListener(new java.awt.event.ActionListener() {
@@ -149,20 +161,20 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnGetAttemptsPendingReview);
-        btnGetAttemptsPendingReview.setBounds(6, 238, 187, 23);
+        btnGetAttemptsPendingReview.setBounds(20, 300, 187, 23);
 
-        btnGetUsers.setText("Get Users Info");
+        btnGetUsers.setText("Get Users");
         btnGetUsers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGetUsersActionPerformed(evt);
             }
         });
         getContentPane().add(btnGetUsers);
-        btnGetUsers.setBounds(6, 267, 103, 23);
+        btnGetUsers.setBounds(20, 330, 79, 23);
 
         jTextField1.setText("txtVideosPath");
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(263, 267, 313, 22);
+        jTextField1.setBounds(10, 70, 140, 22);
 
         btnPauseResumeVideo.setText("Pause/Resume");
         btnPauseResumeVideo.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +183,7 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnPauseResumeVideo);
-        btnPauseResumeVideo.setBounds(404, 238, 118, 23);
+        btnPauseResumeVideo.setBounds(10, 40, 120, 23);
 
         btnLoadFile.setText("Load File");
         btnLoadFile.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +192,11 @@ public class UserView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnLoadFile);
-        btnLoadFile.setBounds(263, 238, 123, 23);
+        btnLoadFile.setBounds(10, 10, 123, 23);
+
+        pnlAttemptsPerUser.setBorder(javax.swing.BorderFactory.createTitledBorder("Attempts Per User"));
+        getContentPane().add(pnlAttemptsPerUser);
+        pnlAttemptsPerUser.setBounds(530, 290, 160, 130);
 
         jMenu1.setText("File");
 
@@ -208,7 +224,7 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnGetAttemptsPendingReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetAttemptsPendingReviewActionPerformed
-        jScrollPane1.setViewportView(lstAttemptsPendingReview);
+        pnlPendingReviewsUsers.setViewportView(lstAttemptsPendingReview);
         ArrayList<Intent> intents = da.getAttemptsPendingReview();
         DefaultListModel dfmu = new DefaultListModel<>();
         for (Intent i: intents){
@@ -219,18 +235,18 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGetAttemptsPendingReviewActionPerformed
 
     private void btnGetUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetUsersActionPerformed
-        jScrollPane1.setViewportView(lstUsuaris);
+        pnlPendingReviewsUsers.setViewportView(lstUsuaris);
         ArrayList<Usuari> usuaris = da.getAllUsers();
-          DefaultListModel dfmu = new DefaultListModel<>();
-          for (Usuari u: usuaris){
-              dfmu.addElement(u);
-          }
-          lstUsuaris.removeAll();
-          lstUsuaris.setModel(dfmu);
+        DefaultListModel dfmu = new DefaultListModel<>();
+        for (Usuari u: usuaris){
+            dfmu.addElement(u);
+        }
+        lstUsuaris.removeAll();
+        lstUsuaris.setModel(dfmu);
     }//GEN-LAST:event_btnGetUsersActionPerformed
 
     private void btnLoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFileActionPerformed
-        jScrollPane1.setViewportView(lstVideos);
+        pnlPendingReviewsUsers.setViewportView(lstVideos);
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION){
@@ -263,12 +279,27 @@ public class UserView extends javax.swing.JFrame {
 
     private void lstAttemptsPendingReviewValueChanged(javax.swing.event.ListSelectionEvent evt){
         Intent selectedIntent  = lstAttemptsPendingReview.getSelectedValue();
-        txtInfo.setText(selectedIntent.getId() +": " +selectedIntent);
+        txtInfo.setText(selectedIntent.toString());
     }
     
     private void lstUsuarisValueChanged(javax.swing.event.ListSelectionEvent evt){
         Usuari selectedUser  = lstUsuaris.getSelectedValue();
         txtInfo.setText(selectedUser.getId() +": " +selectedUser);
+        ArrayList<Intent> intents = da.getAttemptsPerUser(selectedUser);
+        
+        pnlAttemptsPerUser.setViewportView(lstAttemptsPerUser);
+        DefaultListModel dfmu = new DefaultListModel<>();
+        for (Intent i: intents){
+            dfmu.addElement(i);
+        }
+        lstAttemptsPerUser.removeAll();
+        lstAttemptsPerUser.setModel(dfmu);
+        
+    }
+    
+    private void lstAttemptsPerUserValueChanged(javax.swing.event.ListSelectionEvent evt){
+        Intent selectedIntent = lstAttemptsPerUser.getSelectedValue();
+        txtInfo.setText(selectedIntent.toString());
     }
     
     private void lstVideosValueChanged(javax.swing.event.ListSelectionEvent evt){
@@ -299,20 +330,21 @@ public class UserView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InstructorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InstructorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InstructorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InstructorView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserView().setVisible(true);
+                new InstructorView().setVisible(true);
                 
             }
         });
@@ -333,8 +365,9 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane pnlAttemptsPerUser;
+    private javax.swing.JScrollPane pnlPendingReviewsUsers;
     private javax.swing.JPanel pnlVideoPlayer;
     private javax.swing.JTextField txtInfo;
     // End of variables declaration//GEN-END:variables
