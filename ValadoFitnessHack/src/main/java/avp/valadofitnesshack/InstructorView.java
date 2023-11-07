@@ -129,9 +129,9 @@ public class InstructorView extends javax.swing.JFrame {
         pnlAttemptsPerUser = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        itmExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        itmAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -246,15 +246,25 @@ public class InstructorView extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem1.setText("Exit");
-        jMenu1.add(jMenuItem1);
+        itmExit.setText("Exit");
+        itmExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itmExit);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Help");
 
-        jMenuItem2.setText("About");
-        jMenu2.add(jMenuItem2);
+        itmAbout.setText("About");
+        itmAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmAboutActionPerformed(evt);
+            }
+        });
+        jMenu2.add(itmAbout);
 
         jMenuBar1.add(jMenu2);
 
@@ -355,6 +365,27 @@ public class InstructorView extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnEditReviewActionPerformed
+
+    private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_itmExitActionPerformed
+
+    private void itmAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAboutActionPerformed
+        JOptionPane.showMessageDialog(this, "Realizado por Albert Valado Pujol\n"
+                + "\n"
+                + "Se ha resuelto un primer problema de conexión entre Netbeans y la base de datos buscando el error arrojado por la build en Google\n"
+                + "y usando el siguiente enlace: https://es.stackoverflow.com/questions/32148/error-al-conectar-netbeans-con-una-base-de-datos-de-sql-server-2008\n"
+                + "\n"
+                + "Otra problemática recurrente ha sido la comunicación entre las distintas views y sus respectivos dialogs, en particular\n"
+                + "a la hora de pasar información. En general, esto ha sido resuelto a través de la parametrización de la información y el uso de getters/setters. \n"
+                + "El principal punto en el que se ha tenido este problema ha sido a la hora de mantener un único JDialog para los métodos de crear una\n"
+                + "review y de actualizarla, para pasar información acerca de qué botones mostrar. La solución fue usar un parámetro de la ventana padre. \n"
+                + "\n"
+                + "Por algú motivo, añadir las imágenes al main, da error al compilar. \n"
+                + "\n"
+                + "Icono del login: https://www.flaticon.com/free-icons/login created by Freepik - Flaticon\n"
+                + "Logo de la aplicación por gentileza de Tófol Martínez Lorenzo");
+    }//GEN-LAST:event_itmAboutActionPerformed
 
     //Métodos para ejecutar las distintas tareas al seleccionar un valor de una lista
     //Mostrar la información, reproducir vídeos, etc...
@@ -477,11 +508,11 @@ public class InstructorView extends javax.swing.JFrame {
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnPauseResumeVideo;
     private javax.swing.JButton btnReview;
+    private javax.swing.JMenuItem itmAbout;
+    private javax.swing.JMenuItem itmExit;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JScrollPane pnlAttemptsPerUser;

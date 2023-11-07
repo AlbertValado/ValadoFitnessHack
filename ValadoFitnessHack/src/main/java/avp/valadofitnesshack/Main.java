@@ -9,6 +9,7 @@ import avp.valadofitnesshack.dataaccess.DataAccess;
 import avp.valadofitnesshack.dto.Usuari;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,6 +43,11 @@ public class Main extends javax.swing.JFrame {
         btnLogin = new javax.swing.JButton();
         lblLogin = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        itmExit = new javax.swing.JMenuItem();
+        Help = new javax.swing.JMenu();
+        itmAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -55,11 +61,37 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLogin);
-        btnLogin.setBounds(240, 330, 72, 23);
+        btnLogin.setBounds(210, 180, 72, 23);
         jPanel1.add(lblLogin);
         lblLogin.setBounds(210, 330, 30, 30);
         jPanel1.add(lblLogo);
         lblLogo.setBounds(140, 80, 240, 240);
+
+        jMenu1.setText("File");
+
+        itmExit.setText("Exit");
+        itmExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmExitActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itmExit);
+
+        jMenuBar1.add(jMenu1);
+
+        Help.setText("Edit");
+
+        itmAbout.setText("About");
+        itmAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmAboutActionPerformed(evt);
+            }
+        });
+        Help.add(itmAbout);
+
+        jMenuBar1.add(Help);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,7 +104,7 @@ public class Main extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
         );
 
         pack();
@@ -83,6 +115,27 @@ public class Main extends javax.swing.JFrame {
         LoginDialog dialogLogin = new LoginDialog(this, true, this);
         dialogLogin.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_itmExitActionPerformed
+
+    private void itmAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAboutActionPerformed
+        JOptionPane.showMessageDialog(this, "Realizado por Albert Valado Pujol\n"
+                + "\n"
+                + "Se ha resuelto un primer problema de conexión entre Netbeans y la base de datos buscando el error arrojado por la build en Google\n"
+                + "y usando el siguiente enlace: https://es.stackoverflow.com/questions/32148/error-al-conectar-netbeans-con-una-base-de-datos-de-sql-server-2008\n"
+                + "\n"
+                + "Otra problemática recurrente ha sido la comunicación entre las distintas views y sus respectivos dialogs, en particular\n"
+                + "a la hora de pasar información. En general, esto ha sido resuelto a través de la parametrización de la información y el uso de getters/setters. \n"
+                + "El principal punto en el que se ha tenido este problema ha sido a la hora de mantener un único JDialog para los métodos de crear una\n"
+                + "review y de actualizarla, para pasar información acerca de qué botones mostrar. La solución fue usar un parámetro de la ventana padre. \n"
+                + "\n"
+                + "Por algú motivo, añadir las imágenes al main, da error al compilar. \n"
+                + "\n"
+                + "Icono del login: https://www.flaticon.com/free-icons/login created by Freepik - Flaticon\n"
+                + "Logo de la aplicación por gentileza de Tófol Martínez Lorenzo");
+    }//GEN-LAST:event_itmAboutActionPerformed
   
     
     /**
@@ -121,7 +174,12 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu Help;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JMenuItem itmAbout;
+    private javax.swing.JMenuItem itmExit;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblLogo;
