@@ -9,3 +9,5 @@ Otra problemática recurrente ha sido la comunicación entre las distintas views
 a la hora de pasar información. En general, esto ha sido resuelto a través de la parametrización de la información y el uso de getters/setters. 
 El principal punto en el que se ha tenido este problema ha sido a la hora de mantener un único JDialog para los métodos de crear una
 review y de actualizarla, para pasar información acerca de qué botones mostrar. La solución fue usar un parámetro de la ventana padre. 
+
+Icono del login: https://www.flaticon.com/free-icons/login created by Freepik - Flaticon

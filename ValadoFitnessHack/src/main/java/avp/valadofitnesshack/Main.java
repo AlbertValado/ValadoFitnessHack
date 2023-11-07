@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package avp.valadofitnesshack.src.main;
+package avp.valadofitnesshack;
 
-import avp.valadofitnesshack.src.main.dialogs.LoginDialog;
-import avp.valadofitnesshack.src.main.dataaccess.DataAccess;
-import avp.valadofitnesshack.src.main.dto.Usuari;
+import avp.valadofitnesshack.dialogs.LoginDialog;
+import avp.valadofitnesshack.dataaccess.DataAccess;
+import avp.valadofitnesshack.dto.Usuari;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -24,11 +24,9 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-        setSize(700,500);
+        setSize(500,500);
         setLocationRelativeTo(null);
         
-        
-        //lblIconLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login_icon.png")));
     }
 
     /**
@@ -42,6 +40,8 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnLogin = new javax.swing.JButton();
+        lblLogin = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -55,7 +55,11 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnLogin);
-        btnLogin.setBounds(160, 140, 72, 23);
+        btnLogin.setBounds(240, 330, 72, 23);
+        jPanel1.add(lblLogin);
+        lblLogin.setBounds(210, 330, 30, 30);
+        jPanel1.add(lblLogo);
+        lblLogo.setBounds(140, 80, 240, 240);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,15 +67,12 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
         );
 
         pack();
@@ -122,5 +123,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblLogo;
     // End of variables declaration//GEN-END:variables
 }

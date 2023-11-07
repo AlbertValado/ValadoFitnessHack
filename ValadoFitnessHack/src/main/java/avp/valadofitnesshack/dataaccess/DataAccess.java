@@ -1,9 +1,9 @@
-package avp.valadofitnesshack.src.main.dataaccess;
+package avp.valadofitnesshack.dataaccess;
 
 
-import avp.valadofitnesshack.src.main.dto.Intent;
-import avp.valadofitnesshack.src.main.dto.Review;
-import avp.valadofitnesshack.src.main.dto.Usuari;
+import avp.valadofitnesshack.dto.Intent;
+import avp.valadofitnesshack.dto.Review;
+import avp.valadofitnesshack.dto.Usuari;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;

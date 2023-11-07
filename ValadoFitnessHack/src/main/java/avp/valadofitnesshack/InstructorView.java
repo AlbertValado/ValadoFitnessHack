@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package avp.valadofitnesshack.src.main;
+package avp.valadofitnesshack;
 
-import avp.valadofitnesshack.src.main.dataaccess.DataAccess;
-import avp.valadofitnesshack.src.main.dialogs.ReviewDialog;
-import avp.valadofitnesshack.src.main.dto.Intent;
-import avp.valadofitnesshack.src.main.dto.Review;
-import avp.valadofitnesshack.src.main.dto.Usuari;
+import avp.valadofitnesshack.dataaccess.DataAccess;
+import avp.valadofitnesshack.dialogs.ReviewDialog;
+import avp.valadofitnesshack.dto.Intent;
+import avp.valadofitnesshack.dto.Review;
+import avp.valadofitnesshack.dto.Usuari;
 import java.awt.BorderLayout;
 import java.io.File;
 import java.util.ArrayList;

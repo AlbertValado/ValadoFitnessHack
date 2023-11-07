@@ -1,5 +1,5 @@
 
-package avp.valadofitnesshack.src.main.dto;
+package avp.valadofitnesshack.dto;
 
 /**
  *
