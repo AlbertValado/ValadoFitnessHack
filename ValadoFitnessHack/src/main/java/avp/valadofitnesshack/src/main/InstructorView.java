@@ -103,7 +103,6 @@ public class InstructorView extends javax.swing.JFrame {
     public void setIsReview(boolean isReview) {
         this.isReview = isReview;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -294,7 +293,8 @@ public class InstructorView extends javax.swing.JFrame {
         lstUsuaris.setModel(dfmu);
     }//GEN-LAST:event_btnGetUsersActionPerformed
 
-    //Este método sirve para cargar el video asociado al intento seleccionado
+    //Este método servía para cargar manualmente el video asociado al intento seleccionado
+    //Ahora se reproduce automáticamente, pero he decidido dejarlo.
     private void btnLoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadFileActionPerformed
 //        pnlPendingReviewsUsers.setViewportView(lstVideos);
 //        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -343,6 +343,7 @@ public class InstructorView extends javax.swing.JFrame {
 
     private void btnDeleteReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteReviewActionPerformed
         da.deleteReview(selectedIntent);
+        checkReview(selectedIntent);
     }//GEN-LAST:event_btnDeleteReviewActionPerformed
 
     private void btnEditReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditReviewActionPerformed
@@ -355,15 +356,28 @@ public class InstructorView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEditReviewActionPerformed
 
+    //Métodos para ejecutar las distintas tareas al seleccionar un valor de una lista
+    //Mostrar la información, reproducir vídeos, etc...
     private void lstAttemptsPendingReviewValueChanged(javax.swing.event.ListSelectionEvent evt) {
+        if (evt.getValueIsAdjusting()) {
+            return;
+        }
         selectedIntent = lstAttemptsPendingReview.getSelectedValue();
         txtInfo.setText(selectedIntent.toString());
         videoFile = selectedIntent.getVideofile();
         checkReview(selectedIntent);
+        jTextField1.setText(videoFile);
+        String videoLocation = userName + "\\AppData\\Local\\ValadoFitnessHack\\videos\\" + videoFile;
+        mediaPlayer.mediaPlayer().media().play(videoLocation);
+        isPlaying = true;
+        btnPauseResumeVideo.setText("Pause");
 
     }
 
     private void lstUsuarisValueChanged(javax.swing.event.ListSelectionEvent evt) {
+        if (evt.getValueIsAdjusting()) {
+            return;
+        }
         Usuari selectedUser = lstUsuaris.getSelectedValue();
         txtInfo.setText(selectedUser.getId() + ": " + selectedUser);
         ArrayList<Intent> intents = da.getAttemptsPerUser(selectedUser);
@@ -378,23 +392,33 @@ public class InstructorView extends javax.swing.JFrame {
     }
 
     private void lstAttemptsPerUserValueChanged(javax.swing.event.ListSelectionEvent evt) {
+        if (evt.getValueIsAdjusting()) {
+            return;
+        }
         selectedIntent = lstAttemptsPerUser.getSelectedValue();
         txtInfo.setText(selectedIntent.toString());
         videoFile = selectedIntent.getVideofile();
         checkReview(selectedIntent);
-    }
-
-    private void lstVideosValueChanged(javax.swing.event.ListSelectionEvent evt) {
-        if (evt.getValueIsAdjusting()) {
-            return;
-        }
-        String videoFileFolder = fileChooser.getSelectedFile().getAbsolutePath();
-        String videoFileAbsolutePath = videoFileFolder + "\\" + lstVideos.getSelectedValue();
-        mediaPlayer.mediaPlayer().media().play(videoFileAbsolutePath);
+        jTextField1.setText(videoFile);
+        String videoLocation = userName + "\\AppData\\Local\\ValadoFitnessHack\\videos\\" + videoFile;
+        mediaPlayer.mediaPlayer().media().play(videoLocation);
         isPlaying = true;
         btnPauseResumeVideo.setText("Pause");
     }
 
+    //Método de prueba mientras probaba el funcionamiento del vlc
+    private void lstVideosValueChanged(javax.swing.event.ListSelectionEvent evt) {
+//        if (evt.getValueIsAdjusting()) {
+//            return;
+//        }
+//        String videoFileFolder = fileChooser.getSelectedFile().getAbsolutePath();
+//        String videoFileAbsolutePath = videoFileFolder + "\\" + lstVideos.getSelectedValue();
+//        mediaPlayer.mediaPlayer().media().play(videoFileAbsolutePath);
+//        isPlaying = true;
+//        btnPauseResumeVideo.setText("Pause");
+    }
+
+    //Método que comprueba si existe o no una review para mostrar los botones correspondientes
     private void checkReview(Intent intent) {
         Review review = da.getAttemptReview(intent.getId());
         if (review.getId() == 0) {
