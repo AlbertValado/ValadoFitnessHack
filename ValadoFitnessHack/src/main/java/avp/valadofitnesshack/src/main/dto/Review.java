@@ -26,6 +26,11 @@ public class Review {
         this.comentari = comentari;
     }
 
+    @Override
+    public String toString() {
+        return "Review{" + "id=" + id + ", idIntent=" + idIntent + ", idReviewer=" + idReviewer + ", valoracio=" + valoracio + ", comentari=" + comentari + '}';
+    }
+
     public int getId() {
         return id;
     }

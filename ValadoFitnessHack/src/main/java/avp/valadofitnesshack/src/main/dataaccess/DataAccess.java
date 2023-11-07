@@ -240,4 +240,19 @@ public class DataAccess {
         }
         return result;
     }
+    
+    public int deleteReview(Intent i){
+        int result = 0;
+        String sql = "DELETE FROM Review WHERE IdIntent=?";
+        try (Connection conn = getConnection(); PreparedStatement deleteStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            deleteStatement.setInt(1, i.getId());
+            result = deleteStatement.executeUpdate();
+            if(result == 0){
+                throw new SQLException("Deleting review failed, no rows affected.");
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

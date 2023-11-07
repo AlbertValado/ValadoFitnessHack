@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package avp.valadofitnesshack.src.main;
+package avp.valadofitnesshack.src.main.dialogs;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import avp.valadofitnesshack.src.main.InstructorView;
 import avp.valadofitnesshack.src.main.dataaccess.DataAccess;
 import avp.valadofitnesshack.src.main.dto.Usuari;
 import javax.swing.JFrame;
@@ -14,13 +15,13 @@ import javax.swing.JOptionPane;
  *
  * @author Albert
  */
-public class DialogLogin extends javax.swing.JDialog {
+public class LoginDialog extends javax.swing.JDialog {
 
     JFrame mainFrame;
     /**
      * Creates new form DialogLogin
      */
-    public DialogLogin(java.awt.Frame parent, boolean modal, JFrame main) {
+    public LoginDialog(java.awt.Frame parent, boolean modal, JFrame main) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -134,6 +135,7 @@ public class DialogLogin extends javax.swing.JDialog {
                 dispose();
                 InstructorView userView = new InstructorView();
                 userView.setVisible(true);
+                userView.setInstructor(usuari);
                 mainFrame.dispose();
                 JOptionPane.showMessageDialog(this, "Login successful. Welcome " + usuari.getNom() + "!");
             }
@@ -163,20 +165,21 @@ public class DialogLogin extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogLogin dialog = new DialogLogin(new javax.swing.JFrame(), true, new javax.swing.JFrame());
+                LoginDialog dialog = new LoginDialog(new javax.swing.JFrame(), true, new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
