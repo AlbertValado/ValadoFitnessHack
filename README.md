@@ -10,4 +10,7 @@ a la hora de pasar información. En general, esto ha sido resuelto a través de 
 El principal punto en el que se ha tenido este problema ha sido a la hora de mantener un único JDialog para los métodos de crear una
 review y de actualizarla, para pasar información acerca de qué botones mostrar. La solución fue usar un parámetro de la ventana padre. 
 
+Por algú motivo, añadir las imágenes al main, da error al compilar. 
+
 Icono del login: https://www.flaticon.com/free-icons/login created by Freepik - Flaticon
+Logo de la aplicación por gentileza de Tófol Martínez Lorenzo

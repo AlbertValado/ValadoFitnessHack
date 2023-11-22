@@ -9,6 +9,11 @@ import avp.valadofitnesshack.dialogs.ReviewDialog;
 import avp.valadofitnesshack.dto.Intent;
 import avp.valadofitnesshack.dto.Review;
 import avp.valadofitnesshack.dto.Usuari;
+import com.azure.storage.blob.BlobClient;
+import com.azure.storage.blob.BlobClientBuilder;
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.BlobServiceClient;
+import com.azure.storage.blob.BlobServiceClientBuilder;
 import java.awt.BorderLayout;
 import java.io.File;
 import java.util.ArrayList;
@@ -39,6 +44,10 @@ public class InstructorView extends javax.swing.JFrame {
     private String videoFile;
 
     private String userName = System.getProperty("user.home");
+    
+    private String connectStr = "DefaultEndpointsProtocol=https;AccountName=valadovideoserver;AccountKey=dxk5mJBL6Aiqs6jf/E8kC697v4uTToJRLD1I7vDbxVVjY/1eTsv/7RaMQRiHedgscU8PVS6oszsB+AStIBnSuQ==;EndpointSuffix=core.windows.net";
+    private String containerName = "valadovideos";
+    private String tempDir = System.getProperty("java.io.tmpdir");
 
     /**
      * Creates new form UserView
@@ -330,6 +339,8 @@ public class InstructorView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLoadFileActionPerformed
 
+    //Métodos de botones:
+    //Pausar/Reanudar
     private void btnPauseResumeVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPauseResumeVideoActionPerformed
         if (isPlaying) {
             mediaPlayer.mediaPlayer().controls().pause();
@@ -342,6 +353,7 @@ public class InstructorView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPauseResumeVideoActionPerformed
 
+    //Revisar un intento
     private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
         isReview = true;
         ReviewDialog reviewDialog = new ReviewDialog(this, true);
@@ -351,11 +363,13 @@ public class InstructorView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnReviewActionPerformed
 
+    //Borrar un intento
     private void btnDeleteReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteReviewActionPerformed
         da.deleteReview(selectedIntent);
         checkReview(selectedIntent);
     }//GEN-LAST:event_btnDeleteReviewActionPerformed
 
+    //Editar un intento
     private void btnEditReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditReviewActionPerformed
         isReview = false;
         ReviewDialog reviewDialog = new ReviewDialog(this, true);
@@ -366,6 +380,7 @@ public class InstructorView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnEditReviewActionPerformed
 
+    //Métodos del menú:
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_itmExitActionPerformed
@@ -393,13 +408,25 @@ public class InstructorView extends javax.swing.JFrame {
         if (evt.getValueIsAdjusting()) {
             return;
         }
+        
         selectedIntent = lstAttemptsPendingReview.getSelectedValue();
         txtInfo.setText(selectedIntent.toString());
-        videoFile = selectedIntent.getVideofile();
+        
+        String blobName = lstAttemptsPendingReview.getSelectedValue().getVideofile();
+        BlobClient blobClient = new BlobClientBuilder().connectionString(connectStr)
+                .blobName(blobName)
+                .containerName(containerName)
+                .buildClient();
+        
+        //videoFile = selectedIntent.getVideofile();
         checkReview(selectedIntent);
-        jTextField1.setText(videoFile);
-        String videoLocation = userName + "\\AppData\\Local\\ValadoFitnessHack\\videos\\" + videoFile;
-        mediaPlayer.mediaPlayer().media().play(videoLocation);
+        jTextField1.setText(blobName);
+        
+        String downloadPath = tempDir + File.separator + blobName;
+        //String videoLocation = userName + "\\AppData\\Local\\ValadoFitnessHack\\videos\\" + videoFile;
+        blobClient.downloadToFile(downloadPath);
+        
+        mediaPlayer.mediaPlayer().media().play(downloadPath);
         isPlaying = true;
         btnPauseResumeVideo.setText("Pause");
 
@@ -447,6 +474,7 @@ public class InstructorView extends javax.swing.JFrame {
 //        mediaPlayer.mediaPlayer().media().play(videoFileAbsolutePath);
 //        isPlaying = true;
 //        btnPauseResumeVideo.setText("Pause");
+
     }
 
     //Método que comprueba si existe o no una review para mostrar los botones correspondientes

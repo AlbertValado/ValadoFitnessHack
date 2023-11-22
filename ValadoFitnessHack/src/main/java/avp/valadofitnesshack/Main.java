@@ -19,15 +19,15 @@ public class Main extends javax.swing.JFrame {
 
     private DataAccess da = new DataAccess();
     private javax.swing.JList<Usuari> lstUsuaris;
-    
+
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
-        setSize(500,500);
+        setSize(500, 500);
         setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -110,12 +110,13 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         LoginDialog dialogLogin = new LoginDialog(this, true, this);
         dialogLogin.setVisible(true);
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    //Métodos del menú
     private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_itmExitActionPerformed
@@ -136,8 +137,7 @@ public class Main extends javax.swing.JFrame {
                 + "Icono del login: https://www.flaticon.com/free-icons/login created by Freepik - Flaticon\n"
                 + "Logo de la aplicación por gentileza de Tófol Martínez Lorenzo");
     }//GEN-LAST:event_itmAboutActionPerformed
-  
-    
+
     /**
      * @param args the command line arguments
      */

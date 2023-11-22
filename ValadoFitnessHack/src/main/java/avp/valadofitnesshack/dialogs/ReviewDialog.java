@@ -33,6 +33,7 @@ public class ReviewDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         da = new DataAccess();
         InstructorView iv = (InstructorView) parent;
+        //A partir del IsReview del componente padre se muestra un botón u otro
         if (iv.isIsReview()) {
             lblTitle.setText("Create a review:");
             btnReview.setVisible(true);
@@ -139,6 +140,7 @@ public class ReviewDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //El dialog obtiene el Intent y el Reviewer del InstructorView
     public Intent getIntent() {
         return intent;
     }
@@ -154,8 +156,6 @@ public class ReviewDialog extends javax.swing.JDialog {
     public void setReviewer(Usuari reviewer) {
         this.reviewer = reviewer;
     }
-
-
 
     private void btnReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReviewActionPerformed
         Review review = new Review(1, intent.getId(), reviewer.getId(), sldQualification.getValue(), txtComments.getText());

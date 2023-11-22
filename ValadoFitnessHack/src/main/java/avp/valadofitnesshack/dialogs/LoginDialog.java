@@ -135,7 +135,7 @@ public class LoginDialog extends javax.swing.JDialog {
                 dispose();
                 InstructorView userView = new InstructorView();
                 userView.setVisible(true);
-                userView.setInstructor(usuari);
+                userView.setInstructor(usuari); //Pasamos la info del Instructor a la view para poder usarla en las reviews
                 mainFrame.dispose();
                 JOptionPane.showMessageDialog(this, "Login successful. Welcome " + usuari.getNom() + "!");
             }
