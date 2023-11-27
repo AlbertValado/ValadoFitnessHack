@@ -50,7 +50,7 @@ public class DataAccess {
                 user.setNom(resultSet.getString("Nom"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setPasswordHash(resultSet.getString("PasswordHash"));
-                user.setInstructor(resultSet.getBoolean("IsInstructor"));
+                user.setInstructor(resultSet.getBoolean("Instructor"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -60,7 +60,7 @@ public class DataAccess {
 
     public ArrayList<Usuari> getAllUsers() {
         ArrayList<Usuari> usuaris = new ArrayList<>();
-        String sql = "SELECT * FROM Usuaris WHERE IsInstructor=0";
+        String sql = "SELECT * FROM Usuaris WHERE Instructor=0";
         try (Connection connection = getConnection(); PreparedStatement selectStatement = connection.prepareStatement(sql);) {
 
             ResultSet resultSet = selectStatement.executeQuery();
@@ -71,7 +71,7 @@ public class DataAccess {
                 user.setNom(resultSet.getString("Nom"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setPasswordHash(resultSet.getString("PasswordHash"));
-                user.setInstructor(resultSet.getBoolean("IsInstructor"));
+                user.setInstructor(resultSet.getBoolean("Instructor"));
                 usuaris.add(user);
             }
         } catch (SQLException e) {
