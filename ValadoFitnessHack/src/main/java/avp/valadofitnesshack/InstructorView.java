@@ -4,6 +4,7 @@
  */
 package avp.valadofitnesshack;
 
+import avp.fitnessexercisecomponent.FitnessExerciseComponent;
 import avp.valadofitnesshack.dataaccess.DataAccess;
 import avp.valadofitnesshack.dialogs.ReviewDialog;
 import avp.valadofitnesshack.dto.Intent;
@@ -11,12 +12,11 @@ import avp.valadofitnesshack.dto.Review;
 import avp.valadofitnesshack.dto.Usuari;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobClientBuilder;
-import com.azure.storage.blob.BlobContainerClient;
-import com.azure.storage.blob.BlobServiceClient;
-import com.azure.storage.blob.BlobServiceClientBuilder;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -44,7 +44,7 @@ public class InstructorView extends javax.swing.JFrame {
     private String videoFile;
 
     private String userName = System.getProperty("user.home");
-    
+
     private String connectStr = "DefaultEndpointsProtocol=https;AccountName=valadovideoserver;AccountKey=dxk5mJBL6Aiqs6jf/E8kC697v4uTToJRLD1I7vDbxVVjY/1eTsv/7RaMQRiHedgscU8PVS6oszsB+AStIBnSuQ==;EndpointSuffix=core.windows.net";
     private String containerName = "valadovideos";
     private String tempDir = System.getProperty("java.io.tmpdir");
@@ -122,6 +122,7 @@ public class InstructorView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fitnessExerciseComponent2 = new avp.fitnessexercisecomponent.FitnessExerciseComponent();
         pnlVideoPlayer = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         txtInfo = new javax.swing.JTextField();
@@ -129,13 +130,13 @@ public class InstructorView extends javax.swing.JFrame {
         btnReview = new javax.swing.JButton();
         btnEditReview = new javax.swing.JButton();
         btnDeleteReview = new javax.swing.JButton();
-        pnlPendingReviewsUsers = new javax.swing.JScrollPane();
         btnGetAttemptsPendingReview = new javax.swing.JButton();
         btnGetUsers = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         btnPauseResumeVideo = new javax.swing.JButton();
         btnLoadFile = new javax.swing.JButton();
-        pnlAttemptsPerUser = new javax.swing.JScrollPane();
+        pnlUsers = new javax.swing.JScrollPane();
+        pnlAttempts = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         itmExit = new javax.swing.JMenuItem();
@@ -169,7 +170,7 @@ public class InstructorView extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel4);
-        jPanel4.setBounds(10, 420, 679, 60);
+        jPanel4.setBounds(20, 510, 679, 60);
 
         btnLogOut.setText("Log Out");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -178,7 +179,7 @@ public class InstructorView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnLogOut);
-        btnLogOut.setBounds(553, 493, 130, 70);
+        btnLogOut.setBounds(560, 590, 130, 70);
 
         btnReview.setText("Review");
         btnReview.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +188,7 @@ public class InstructorView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnReview);
-        btnReview.setBounds(140, 490, 72, 23);
+        btnReview.setBounds(140, 580, 72, 23);
 
         btnEditReview.setText("Edit");
         btnEditReview.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +197,7 @@ public class InstructorView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEditReview);
-        btnEditReview.setBounds(220, 490, 72, 23);
+        btnEditReview.setBounds(220, 580, 72, 23);
 
         btnDeleteReview.setText("Delete");
         btnDeleteReview.addActionListener(new java.awt.event.ActionListener() {
@@ -205,9 +206,7 @@ public class InstructorView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeleteReview);
-        btnDeleteReview.setBounds(300, 490, 72, 23);
-        getContentPane().add(pnlPendingReviewsUsers);
-        pnlPendingReviewsUsers.setBounds(220, 290, 290, 130);
+        btnDeleteReview.setBounds(300, 580, 72, 23);
 
         btnGetAttemptsPendingReview.setText("Get Attempts Pending Review");
         btnGetAttemptsPendingReview.addActionListener(new java.awt.event.ActionListener() {
@@ -229,7 +228,7 @@ public class InstructorView extends javax.swing.JFrame {
 
         jTextField1.setText("txtVideosPath");
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(20, 550, 140, 22);
+        jTextField1.setBounds(20, 640, 140, 22);
 
         btnPauseResumeVideo.setText("Pause/Resume");
         btnPauseResumeVideo.addActionListener(new java.awt.event.ActionListener() {
@@ -238,7 +237,7 @@ public class InstructorView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnPauseResumeVideo);
-        btnPauseResumeVideo.setBounds(20, 520, 120, 23);
+        btnPauseResumeVideo.setBounds(20, 610, 120, 23);
 
         btnLoadFile.setText("Load Video");
         btnLoadFile.addActionListener(new java.awt.event.ActionListener() {
@@ -247,11 +246,13 @@ public class InstructorView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnLoadFile);
-        btnLoadFile.setBounds(20, 490, 110, 23);
+        btnLoadFile.setBounds(20, 580, 110, 23);
 
-        pnlAttemptsPerUser.setBorder(javax.swing.BorderFactory.createTitledBorder("Attempts Per User"));
-        getContentPane().add(pnlAttemptsPerUser);
-        pnlAttemptsPerUser.setBounds(520, 290, 170, 130);
+        pnlUsers.setBorder(javax.swing.BorderFactory.createTitledBorder("Users"));
+        getContentPane().add(pnlUsers);
+        pnlUsers.setBounds(20, 370, 170, 130);
+        getContentPane().add(pnlAttempts);
+        pnlAttempts.setBounds(230, 290, 460, 200);
 
         jMenu1.setText("File");
 
@@ -291,18 +292,33 @@ public class InstructorView extends javax.swing.JFrame {
     //Los dos métodos siguientes permiten obtener una lista que se muestra en el mismo panel
     //O bien, una de intentos pendientes de revisión o una de usuarios
     private void btnGetAttemptsPendingReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetAttemptsPendingReviewActionPerformed
-        pnlPendingReviewsUsers.setViewportView(lstAttemptsPendingReview);
+        
         ArrayList<Intent> intents = da.getAttemptsPendingReview();
+        pnlAttempts.setLayout(new BoxLayout(pnlAttempts, BoxLayout.PAGE_AXIS));
         DefaultListModel dfmu = new DefaultListModel<>();
         for (Intent i : intents) {
-            dfmu.addElement(i);
+            //dfmu.addElement(i);
+            FitnessExerciseComponent fec = new FitnessExerciseComponent();
+            fec.setPreferredSize(new Dimension(300,90));
+            
+
+            fec.setExerciseName(i.getNomExercici());
+            fec.setExerciseUserName(i.getNomUsuari());
+            
+            pnlAttempts.add(fec);
+            
+            fec.setVisible(true);
+
         }
-        lstAttemptsPendingReview.removeAll();
-        lstAttemptsPendingReview.setModel(dfmu);
+        
+        pnlAttempts.revalidate();
+        pnlAttempts.repaint();
+        //lstAttemptsPendingReview.removeAll();
+        //lstAttemptsPendingReview.setModel(dfmu);
     }//GEN-LAST:event_btnGetAttemptsPendingReviewActionPerformed
 
     private void btnGetUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetUsersActionPerformed
-        pnlPendingReviewsUsers.setViewportView(lstUsuaris);
+        pnlUsers.setViewportView(lstUsuaris);
         ArrayList<Usuari> usuaris = da.getAllUsers();
         DefaultListModel dfmu = new DefaultListModel<>();
         for (Usuari u : usuaris) {
@@ -408,24 +424,24 @@ public class InstructorView extends javax.swing.JFrame {
         if (evt.getValueIsAdjusting()) {
             return;
         }
-        
+
         selectedIntent = lstAttemptsPendingReview.getSelectedValue();
         txtInfo.setText(selectedIntent.toString());
-        
+
         String blobName = lstAttemptsPendingReview.getSelectedValue().getVideofile();
         BlobClient blobClient = new BlobClientBuilder().connectionString(connectStr)
                 .blobName(blobName)
                 .containerName(containerName)
                 .buildClient();
-        
+
         //videoFile = selectedIntent.getVideofile();
         checkReview(selectedIntent);
         jTextField1.setText(blobName);
-        
+
         String downloadPath = tempDir + File.separator + blobName;
         //String videoLocation = userName + "\\AppData\\Local\\ValadoFitnessHack\\videos\\" + videoFile;
         blobClient.downloadToFile(downloadPath);
-        
+
         mediaPlayer.mediaPlayer().media().play(downloadPath);
         isPlaying = true;
         btnPauseResumeVideo.setText("Pause");
@@ -440,7 +456,7 @@ public class InstructorView extends javax.swing.JFrame {
         txtInfo.setText(selectedUser.getId() + ": " + selectedUser);
         ArrayList<Intent> intents = da.getAttemptsPerUser(selectedUser);
 
-        pnlAttemptsPerUser.setViewportView(lstAttemptsPerUser);
+        //pnlAttempts.setViewportView(lstAttemptsPerUser);
         DefaultListModel dfmu = new DefaultListModel<>();
         for (Intent i : intents) {
             dfmu.addElement(i);
@@ -536,6 +552,7 @@ public class InstructorView extends javax.swing.JFrame {
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnPauseResumeVideo;
     private javax.swing.JButton btnReview;
+    private avp.fitnessexercisecomponent.FitnessExerciseComponent fitnessExerciseComponent2;
     private javax.swing.JMenuItem itmAbout;
     private javax.swing.JMenuItem itmExit;
     private javax.swing.JMenu jMenu1;
@@ -543,8 +560,8 @@ public class InstructorView extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JScrollPane pnlAttemptsPerUser;
-    private javax.swing.JScrollPane pnlPendingReviewsUsers;
+    private javax.swing.JScrollPane pnlAttempts;
+    private javax.swing.JScrollPane pnlUsers;
     private javax.swing.JPanel pnlVideoPlayer;
     private javax.swing.JTextField txtInfo;
     // End of variables declaration//GEN-END:variables
